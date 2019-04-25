@@ -42,21 +42,16 @@ switch (command) {
 
 function getBandInfo(userInput) {
   const bandURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
-  axios.get(bandURL).then(function (err, response) {
-      if (err) {
-        return console.log("Error occurred: " + err);
-      }
-      else {
-        const results = response.data;
-        for (let i = 0; i < results.length; i++) {
-          console.log("-".repeat(50));
-          console.log("Event Venue Name: " + results[i].venue.name);
-          console.log("Event City: " + results[i].venue.city + ", " + results[i].venue.region);
-          console.log("Event Date: " + moment(results[i].datetime).format("MM/DD/YYYY, h:mm a"));
-          console.log("-".repeat(50));
-        }
-      }
-    })
+  axios.get(bandURL).then(function (response) {
+    const results = response.data;
+    for (let i = 0; i < results.length; i++) {
+      console.log("-".repeat(50));
+      console.log("Event Venue Name: " + results[i].venue.name);
+      console.log("Event City: " + results[i].venue.city + ", " + results[i].venue.region);
+      console.log("Event Date: " + moment(results[i].datetime).format("MM/DD/YYYY, h:mm a"));
+      console.log("-".repeat(50));
+    }
+  })
 }
 
 function getSongInfo(userInput) {
@@ -64,32 +59,33 @@ function getSongInfo(userInput) {
     if (err) {
       return console.log("Error occurred: " + err);
     }
-    else {
-      const results = response.tracks.items;
-      for (let i = 0; i < results.length; i++) {
-        console.log("-".repeat(50));
-        console.log("Artist Name: " + results[i].artists[0].name);
-        console.log("Song Name: " + results[i].name);
-        console.log("Song Preview: " + results[i].preview_url);
-        console.log("Album: " + results[i].album.name);
-        console.log("-".repeat(50));
-      }
+    const results = response.tracks.items;
+    for (let i = 0; i < results.length; i++) {
+      console.log("-".repeat(50));
+      console.log("Artist Name: " + results[i].artists[0].name);
+      console.log("Song Name: " + results[i].name);
+      console.log("Song Preview: " + results[i].preview_url);
+      console.log("Album: " + results[i].album.name);
+      console.log("-".repeat(50));
     }
   })
 }
 
-// function getMovieInfo(userInput) {
-//   const movieURL = "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=480895f5";
-//   axios.get(movieURL).then(function (err, response) {
-//     if (err) {
-//       return console.log("Error occurred: " + err);
-//     }
-//     else {
-//       for (let i = 0; i < response.length; i++) {
-//         console.log("-".repeat(50));
-
-//       }
-
-//     }
-//   })
-// }
+function getMovieInfo(userInput) {
+  if (userInput === "") {
+    userInput = "mr nobody";
+  }
+  const movieURL = "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&&apikey=480895f5";
+  axios.get(movieURL).then(function (response) {
+    console.log("-".repeat(50));
+    console.log("Movie Title: " + response.data.Title);
+    console.log("Release Year: " + response.data.Year);
+    console.log("IMDb Rating: " + response.data.Ratings[0].Value);
+    console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+    console.log("Country: " + response.data.Country);
+    console.log("Language(s): " + response.data.Language);
+    console.log("Plot: " + response.data.Plot);
+    console.log("Actors/Actresses: " + response.data.Actors);
+    console.log("-".repeat(50));
+  })
+}
