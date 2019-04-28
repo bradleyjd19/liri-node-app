@@ -10,13 +10,8 @@ const nodeArg = process.argv;
 const command = nodeArg[2];
 let userInput = "";
 for (let i = 3; i < nodeArg.length; i++) {
-  if (i > 2 && i < nodeArg.length) {
-    userInput = userInput + " " + nodeArg[i];
-    userInput = userInput.trim();
-  }
-  else {
-    userInput += nodeArg[i];
-  }
+  userInput = userInput + " " + nodeArg[i];
+  userInput = userInput.trim();
 }
 
 function runCommand(command, userInput) {
@@ -42,6 +37,7 @@ runCommand(command, userInput);
 
 function getBandInfo(userInput) {
   if (userInput === "") {
+    console.log("\n" + chalk`{cyan If you're looking for a rockin' good time\nbecome a part of the Excitable Crew with 311!}`);
     userInput = "311";
   }
   const bandURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
@@ -56,13 +52,14 @@ function getBandInfo(userInput) {
       console.log(chalk`{blue.bold -}`.repeat(50));
     }
   })
-  .catch(function(error) {
-    console.log("Error Occurred: " + error);
-  })
+    .catch(function (error) {
+      console.log("Error Occurred: " + error);
+    })
 }
 
 function getSongInfo(userInput) {
   if (userInput === "") {
+    console.log("\n" + chalk`{cyan If you're looking for a sweet tune, check out\n"The Sign" by Ace of Base!}`);
     userInput = "ace of base the sign";
   }
   spotify.search({ type: "track", query: userInput }, function (err, response) {
@@ -84,6 +81,7 @@ function getSongInfo(userInput) {
 
 function getMovieInfo(userInput) {
   if (userInput === "") {
+    console.log("\n" + chalk`{cyan If you haven't watched "Mr. Nobody," then you should!\nhttp://www.imdb.com/title/tt0485947/\nIt's on Netflix!}`);
     userInput = "mr nobody";
   }
   const movieURL = "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&&apikey=480895f5";
@@ -101,9 +99,9 @@ function getMovieInfo(userInput) {
     console.log(chalk`{yellow.bold Actors/Actresses: }` + results.Actors);
     console.log(chalk`{yellow -}`.repeat(50));
   })
-  .catch(function(error) {
-    console.log("Error Occurred: " + error);
-  })
+    .catch(function (error) {
+      console.log("Error Occurred: " + error);
+    })
 }
 
 function getRandomInfo() {
