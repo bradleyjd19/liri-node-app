@@ -1,5 +1,5 @@
 # liri-node-app
-LIRI is a language interprtation and recognition interface application that runs on the command line.  It takes in one of four commands, along with a search query, and returns information based on the combination of the two parameters.
+LIRI is a language interpretation and recognition interface application that runs on the command line.  It takes in one of four commands, along with a search query, and returns information based on the combination of the two parameters.
 
 
 ## Command Line Input
